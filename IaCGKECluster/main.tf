@@ -5,8 +5,16 @@ provider "google" {
 }
 
 module "gke_cluster" {
-  source         = "https://github.com/waild/tf-google-gke-cluster"
+  source         = "github.com/waild/tf-google-gke-cluster"
   GOOGLE_REGION  = var.GOOGLE_REGION
   GOOGLE_PROJECT = var.GOOGLE_PROJECT
   GKE_NUM_NODES  = var.GKE_NUM_NODES
 }
+
+terraform {
+  backend "gcs" {
+    bucket = "tf_temp_bucket"
+    prefix = "terraform/state"
+  }
+}
+  
