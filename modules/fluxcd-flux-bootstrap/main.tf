@@ -1,6 +1,9 @@
 provider "flux" {
   kubernetes = {
-    config_path = var.config_path
+    host                   = var.config_host
+    client_key             = var.config_client_key
+    cluster_ca_certificate = var.config_ca
+    client_certificate     = var.config_crt
   }
   git = {
     url = "https://github.com/${var.github_repository}.git"

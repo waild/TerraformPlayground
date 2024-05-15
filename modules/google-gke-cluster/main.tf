@@ -44,8 +44,9 @@ module "gke_auth" {
   location             = var.GOOGLE_REGION
 }
 
-resource "local_file" "kubeconfig" {
-  content  = module.gke_auth.kubeconfig_raw
-  filename = "${path.module}/kubeconfig"
-  file_permission = "0400"
+data "google_client_config" "current" {}
+
+data "google_container_cluster" "main" {
+  name     = google_container_cluster.this.name
+  location = var.GOOGLE_REGION
 }
