@@ -17,36 +17,11 @@ variable "github_token" {
 
 variable "private_key" {
   type        = string
-  default = ""
   description = "The private key used to authenticate with the Git repository"
 }
 
-variable "config_host" {
+variable "config_path" {
   type        = string
-  default     = "gke"
-  description = "The url for kind"
-}
-
-variable "config_client_key" {
-  type        = string
-  default     = "client_key"
-  description = "The token for kind"
-}
-
-variable "config_crt" {
-  type        = string
-  default     = "ca"
-  description = "The ca for kind"
-}
-
-
-variable "config_ca" {
-  default     = "ca"
-  description = "The ca for kind"
-}
-
-variable "flux_namespace" {
-  type        = string
-  default     = "flux-system"
-  description = "GitHub repository to store Flux manifests"
+  default     = "~/.kube/config"
+  description = "The path to the kubeconfig file"
 }
