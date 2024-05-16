@@ -15,16 +15,15 @@ module "gke_cluster" {
   GKE_NUM_NODES  = 1
 }
 
+module "tls_private_key" {
+  source    = "./modules/hashicorp-tls-keys"
+  algorithm = "RSA"
+}
+
 module "flux_bootstrap" {
   source            = "./modules/fluxcd-flux-bootstrap"
   github_repository = "${var.GITHUB_OWNER}/${var.FLUX_GITHUB_REPO}"
   private_key       = module.tls_private_key.private_key_pem
-  config_host       = module.gke_cluster.config_host
-  config_client_key = module.gke_cluster.name
-  config_ca         = module.gke_cluster.config_ca
-  config_crt        = module.gke_cluster.config_token
-}
-module "tls_private_key" {
-  source    = "./modules/hashicorp-tls-keys"
-  algorithm = "RSA"
+  config_path       = module.gke_cluster.kubeconfig
+  github_token      = var.GITHUB_TOKEN
 }
