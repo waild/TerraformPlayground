@@ -1,3 +1,9 @@
+terraform {
+  backend "gcs" {
+    bucket  = "tf-state-education"
+    prefix  = "terraform/state"
+  }
+}
 
 module "tls_private_key" {
   source    = "./modules/hashicorp-tls-keys"
